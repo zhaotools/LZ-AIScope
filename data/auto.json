@@ -1,9 +1,9 @@
 {
   "version": 1,
-  "generatedAt": "2026-10-12T00:47:49.714Z",
+  "generatedAt": "2026-10-12T00:50:43.218Z",
   "sec": {
     "status": "ok",
-    "fetchedAt": "2026-10-12T00:47:49.714Z",
+    "fetchedAt": "2026-10-12T00:50:43.218Z",
     "items": [
       {
         "symbol": "MSFT",
@@ -100,8 +100,8 @@
   },
   "gpu": {
     "status": "ok",
-    "fetchedAt": "2026-10-12T00:47:49.714Z",
-    "sourceAt": "2026-10-12T00:47:51.265Z",
+    "fetchedAt": "2026-10-12T00:50:43.218Z",
+    "sourceAt": "2026-10-12T00:50:43.476Z",
     "offers": [
       {
         "model": "H100",
@@ -382,7 +382,7 @@
   },
   "market": {
     "status": "ok",
-    "fetchedAt": "2026-10-12T00:47:49.714Z",
+    "fetchedAt": "2026-10-12T00:50:43.218Z",
     "items": [
       {
         "symbol": "MSFT",
