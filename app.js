@@ -59,21 +59,36 @@ function setStatus(id, state) {
 function renderAuto(auto) {
   if (auto?.version !== 1) throw new Error('自动数据格式异常');
   byId('data-updated').textContent = auto.generatedAt ? `检查于 ${dateText(auto.generatedAt)}` : '尚未采样';
+  const market = auto.market || {};
   const sec = auto.sec || {};
   const gpu = auto.gpu || {};
+  setStatus('market-status', market.status);
   setStatus('sec-status', sec.status);
   setStatus('gpu-status', gpu.status);
+  const quoteItems = (market.items || []).filter((item) => typeof item.price === 'number');
+  byId('market-data').innerHTML = quoteItems.length ? quoteItems.map((item) => `
+    <a class="quote-card" href="${safeUrl(item.source)}" target="_blank" rel="noopener noreferrer">
+      <span class="quote-name"><strong>${escapeHtml(item.symbol)}</strong><small>${escapeHtml(item.name)}</small></span>
+      <span class="quote-price">$${fmt(item.price)} <small class="${item.change < 0 ? 'negative' : 'positive'}">${item.change > 0 ? '+' : ''}${fmt(item.change)}%</small></span>
+      <span class="quote-date">${escapeHtml(item.tradeDate)} 交易日 · ${item.isRealTime ? '来源标记实时' : '非实时'} ↗</span>
+    </a>`).join('') : `<p class="data-empty">${escapeHtml(market.error || '等待第一次行情采样。')}</p>`;
+  byId('market-context').textContent = market.error || '来源：Nasdaq 公开报价；仅显示来源返回的最近交易价和日期。';
   const secItems = (sec.items || []).filter((item) => typeof item.ratio === 'number');
   byId('sec-data').innerHTML = secItems.length ? secItems.map((item) => `
-    <div class="data-row"><div><strong>${escapeHtml(item.name)}</strong><small>${escapeHtml(item.start)} 至 ${escapeHtml(item.end)} · ${escapeHtml(item.form)}</small></div>
-    <span><b>${fmt(item.ratio)}×</b><small>现金 Capex / OCF · <a class="source-link" href="${safeUrl(item.source)}" target="_blank" rel="noopener noreferrer">披露 ${escapeHtml(item.filed)} ↗</a></small></span></div>`).join('') +
-    `<small class="data-context">${escapeHtml(sec.error || '各公司按自己的最近可配对财报期间展示，不作横向总额比较。')}</small>` :
+    <div class="financial-row">
+      <div class="financial-head"><strong>${escapeHtml(item.symbol)} <small>${escapeHtml(item.name)}</small></strong><b>${fmt(item.ratio)}× <small>Capex / OCF</small></b></div>
+      <div class="financial-metrics"><span>总收入 <strong>${fmt(typeof item.revenue === 'number' ? item.revenue / 1e9 : null, 1)}</strong></span><span>现金 Capex <strong>${fmt(item.capex / 1e9, 1)}</strong></span><span>OCF <strong>${fmt(item.ocf / 1e9, 1)}</strong></span></div>
+      <small class="financial-period">${escapeHtml(item.start)} 至 ${escapeHtml(item.end)} · ${escapeHtml(item.form)} · <a class="source-link" href="${safeUrl(item.source)}" target="_blank" rel="noopener noreferrer">披露 ${escapeHtml(item.filed)} ↗</a></small>
+    </div>`).join('') +
+    `<small class="data-context">${escapeHtml(sec.error || '各公司报告期间可能不同；这里不作合计。')}</small>` :
     `<p class="data-empty">${escapeHtml(sec.error || '等待第一次财报采样。')}</p>`;
   const gpuItems = (gpu.summaries || []).filter((item) => item.model === 'B200' || item.model === 'H100');
   byId('gpu-data').innerHTML = gpuItems.length ? gpuItems.map((item) => `
-    <div class="data-row"><div><strong>${escapeHtml(item.model)}</strong><small>${fmt(item.count, 0)} 条报价 · ${fmt(item.providers, 0)} 家供应商</small></div>
-    <span><b>${fmt(item.median)}</b><small>美元 / GPU 时</small></span></div>`).join('') +
-    `<small class="data-context">来源生成于 ${dateText(gpu.sourceAt)}${gpu.error ? ` · ${escapeHtml(gpu.error)}` : ''}</small>` :
+    <div class="gpu-group"><div class="gpu-summary"><div><strong>${escapeHtml(item.model)}</strong><small>${fmt(item.count, 0)} 条 · ${fmt(item.providers, 0)} 家供应商</small></div><span><b>$${fmt(item.median)}</b><small>中位数 / GPU 时</small></span></div>
+      <div class="gpu-range">挂牌范围：$${fmt(item.min)}–$${fmt(item.max)} / GPU 时</div>
+      ${(gpu.offers || []).filter((offer) => offer.model === item.model).slice(0, 3).map((offer) => `<div class="offer-row"><span>${escapeHtml(offer.provider)} · ${escapeHtml(offer.region)} · ${fmt(offer.gpuCount, 0)} GPU</span><strong>$${fmt(offer.price)}</strong></div>`).join('')}
+    </div>`).join('') +
+    `<small class="data-context">上方明细为各型号价格最低的 3 条挂牌。来源生成于 ${dateText(gpu.sourceAt)}${gpu.error ? ` · ${escapeHtml(gpu.error)}` : ''}</small>` :
     `<p class="data-empty">${escapeHtml(gpu.error || '等待第一次 GPU 报价采样。')}</p>`;
 }
 
@@ -96,7 +111,7 @@ async function start() {
   try { if (issue.status === 'fulfilled') renderIssue(issue.value); else throw issue.reason; }
   catch { byId('evidence-cards').innerHTML = '<p class="loading-note">本期记录暂时无法读取，请稍后刷新。</p>'; }
   try { if (auto.status === 'fulfilled') renderAuto(auto.value); else throw auto.reason; }
-  catch { byId('data-updated').textContent = '自动数据暂不可用'; setStatus('sec-status', 'unavailable'); setStatus('gpu-status', 'unavailable'); }
+  catch { byId('data-updated').textContent = '自动数据暂不可用'; setStatus('market-status', 'unavailable'); setStatus('sec-status', 'unavailable'); setStatus('gpu-status', 'unavailable'); }
   try { if (history.status === 'fulfilled') renderHistory(history.value); else throw history.reason; }
   catch { byId('daily-history').innerHTML = '<p class="loading-note">历史采样暂时无法读取。</p>'; }
 }

@@ -8,6 +8,10 @@ const historyPath = path.join(root, 'data/history.json');
 const companies = [
   { symbol: 'MSFT', name: 'Microsoft', cik: '0000789019' },
   { symbol: 'META', name: 'Meta', cik: '0001326801' },
+  { symbol: 'NVDA', name: 'NVIDIA', cik: '0001045810' },
+  { symbol: 'GOOGL', name: 'Alphabet', cik: '0001652044' },
+  { symbol: 'AMZN', name: 'Amazon', cik: '0001018724' },
+  { symbol: 'MU', name: 'Micron', cik: '0000723125' },
 ];
 
 function finite(value) {
@@ -33,15 +37,21 @@ export function parseGpu(data) {
     if (!group) return [];
     const basis = offer.priceBasis ?? (offer.provider === 'akash' ? 'gpu' : 'node');
     if (!['gpu', 'node'].includes(basis)) return [];
-    return [{ model: group, price: offer.price / (basis === 'gpu' ? 1 : offer.gpuCount), provider: String(offer.provider || '未披露') }];
+    return [{ model: group, price: offer.price / (basis === 'gpu' ? 1 : offer.gpuCount),
+      provider: String(offer.provider || '未披露'), region: String(offer.region || '未披露'),
+      gpuCount: offer.gpuCount, available: offer.available }];
   });
   return {
     sourceAt: data.timestamp,
+    offers: offers.sort((a, b) => a.price - b.price).slice(0, 80),
     summaries: ['B200', 'H100'].map((model) => {
       const group = offers.filter((offer) => offer.model === model);
+      const prices = group.map((offer) => offer.price);
       return {
         model,
-        median: median(group.map((offer) => offer.price)),
+        median: median(prices),
+        min: prices.length ? Math.min(...prices) : null,
+        max: prices.length ? Math.max(...prices) : null,
         count: group.length,
         providers: new Set(group.map((offer) => offer.provider)).size,
       };
@@ -61,27 +71,58 @@ export function parseCashCoverage(data, company, today = new Date().toISOString(
   const ocfs = entries('NetCashProvidedByUsedInOperatingActivities');
   const capex = ['PaymentsToAcquirePropertyPlantAndEquipment', 'PaymentsToAcquireProductiveAssets']
     .flatMap((tag) => entries(tag).map((fact) => ({ ...fact, tag })));
+  const revenueTags = ['RevenueFromContractWithCustomerExcludingAssessedTax', 'Revenues', 'SalesRevenueNet'];
+  const revenues = revenueTags.flatMap((tag) => entries(tag).map((fact) => ({ ...fact, tag })));
+  const revenueMap = new Map(revenues.map((fact) => [`${fact.start}|${fact.end}|${fact.accn}`, fact]));
+  const revenueFor = (period) => revenueMap.get(`${period.start}|${period.end}|${period.accn}`);
   const pairs = ocfs.flatMap((ocf) => {
     const match = capex.find((item) => item.start === ocf.start && item.end === ocf.end && item.accn === ocf.accn);
     return match ? [{ ocf, capex: match }] : [];
   });
   pairs.sort((a, b) => b.ocf.end.localeCompare(a.ocf.end) ||
+    Number(Boolean(revenueFor(b.ocf))) - Number(Boolean(revenueFor(a.ocf))) ||
     (Date.parse(a.ocf.start) - Date.parse(b.ocf.start)) || b.ocf.filed.localeCompare(a.ocf.filed));
   const pair = pairs.find(({ ocf, capex: spend }) => ocf.val > 0 && spend.val >= 0);
   if (!pair) throw new Error('没有可配对的现金资本开支与经营现金流');
   const { ocf, capex: spend } = pair;
+  const revenue = revenueFor(ocf);
   return {
     symbol: company.symbol,
     name: company.name,
     ratio: spend.val / ocf.val,
     capex: spend.val,
     ocf: ocf.val,
+    revenue: revenue?.val ?? null,
+    revenueTag: revenue?.tag ?? null,
     start: ocf.start,
     end: ocf.end,
     filed: ocf.filed,
     form: ocf.form,
     capexTag: spend.tag,
     source: `https://www.sec.gov/Archives/edgar/data/${Number(company.cik)}/${ocf.accn.replaceAll('-', '')}/`,
+  };
+}
+
+export function parseNasdaqQuote(payload, company) {
+  const data = payload?.data;
+  const quote = data?.primaryData;
+  const numeric = (value) => {
+    const raw = String(value ?? '').replaceAll(',', '').replaceAll('$', '').replaceAll('%', '').trim();
+    return raw && /^[+-]?\d+(?:\.\d+)?$/.test(raw) ? Number(raw) : null;
+  };
+  const price = numeric(quote?.lastSalePrice);
+  const change = numeric(quote?.percentageChange);
+  const stamp = String(quote?.lastTradeTimestamp || '');
+  const date = /^\w{3} \d{1,2}, \d{4}$/.test(stamp) ? Date.parse(`${stamp} 12:00:00 GMT`) : NaN;
+  if (data?.symbol !== company.symbol || !finite(price) || price <= 0 || !Number.isFinite(date)) {
+    throw new Error('Nasdaq 报价缺少价格或交易日期');
+  }
+  return {
+    symbol: company.symbol, name: company.name, price, change,
+    tradeDate: new Date(date).toISOString().slice(0, 10),
+    isRealTime: quote.isRealTime === true,
+    marketStatus: String(data.marketStatus || ''),
+    source: `https://www.nasdaq.com/market-activity/stocks/${company.symbol.toLowerCase()}`,
   };
 }
 
@@ -104,7 +145,7 @@ function chinaDate(date) {
 }
 
 async function main() {
-  const previous = await readJson(autoPath, { version: 1, sec: { items: [] }, gpu: { summaries: [] } });
+  const previous = await readJson(autoPath, { version: 1, sec: { items: [] }, gpu: { summaries: [] }, market: { items: [] } });
   const history = await readJson(historyPath, { version: 1, daily: [] });
   const now = new Date();
   const generatedAt = now.toISOString();
@@ -118,21 +159,51 @@ async function main() {
     console.warn(`GPU：${error.message}`);
   }
 
+  const quoteResults = [];
+  for (let offset = 0; offset < companies.length; offset += 3) {
+    quoteResults.push(...await Promise.all(companies.slice(offset, offset + 3).map(async (company) => {
+      try {
+        const payload = await getJson(`https://api.nasdaq.com/api/quote/${company.symbol}/info?assetclass=stocks`, {
+          'User-Agent': 'Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/126.0.0.0 Safari/537.36',
+          Origin: 'https://www.nasdaq.com',
+        });
+        return parseNasdaqQuote(payload, company);
+      } catch (error) {
+        console.warn(`${company.symbol} 行情：${error.message}`);
+        return { symbol: company.symbol, error: error.message };
+      }
+    })));
+  }
+  const oldQuotes = new Map((previous.market?.items || []).map((item) => [item.symbol, item]));
+  const goodQuotes = quoteResults.filter((item) => !item.error).length;
+  const quotes = quoteResults.map((item) => item.error ? oldQuotes.get(item.symbol) || item : item);
+  next.market = {
+    status: goodQuotes === companies.length ? 'ok' : goodQuotes ? 'partial' :
+      quotes.some((item) => finite(item.price)) ? 'stale' : 'unavailable',
+    fetchedAt: goodQuotes ? generatedAt : previous.market?.fetchedAt || null,
+    items: quotes,
+    error: goodQuotes === companies.length ? null : `${companies.length - goodQuotes} 家公司本次报价读取失败；旧值保留原交易日期`,
+  };
+
   const secAgent = process.env.SEC_USER_AGENT || 'LZ-AIScope/1.0 (https://github.com/zhaotools/LZ-AIScope/issues)';
-  const results = await Promise.all(companies.map(async (company) => {
-    try {
-      const payload = await getJson(`https://data.sec.gov/api/xbrl/companyfacts/CIK${company.cik}.json`, { 'User-Agent': secAgent });
-      return parseCashCoverage(payload, company);
-    } catch (error) {
-      console.warn(`${company.symbol} 财报：${error.message}`);
-      return { symbol: company.symbol, error: error.message };
-    }
-  }));
+  const results = [];
+  for (let offset = 0; offset < companies.length; offset += 2) {
+    results.push(...await Promise.all(companies.slice(offset, offset + 2).map(async (company) => {
+      try {
+        const payload = await getJson(`https://data.sec.gov/api/xbrl/companyfacts/CIK${company.cik}.json`, { 'User-Agent': secAgent });
+        return parseCashCoverage(payload, company);
+      } catch (error) {
+        console.warn(`${company.symbol} 财报：${error.message}`);
+        return { symbol: company.symbol, error: error.message };
+      }
+    })));
+  }
   const oldItems = new Map((previous.sec?.items || []).map((item) => [item.symbol, item]));
   const items = results.map((item) => item.error ? oldItems.get(item.symbol) || item : item);
   const okCount = results.filter((item) => !item.error).length;
   next.sec = {
-    status: okCount === companies.length ? 'ok' : items.some((item) => finite(item.ratio)) ? 'partial' : 'unavailable',
+    status: okCount === companies.length ? 'ok' : okCount ? 'partial' :
+      items.some((item) => finite(item.ratio)) ? 'stale' : 'unavailable',
     fetchedAt: okCount ? generatedAt : previous.sec?.fetchedAt || null,
     items,
     error: okCount === companies.length ? null : `${companies.length - okCount} 家公司本次读取失败；已有数值保留原披露期间`,
@@ -144,12 +215,13 @@ async function main() {
     date: day,
     capturedAt: generatedAt,
     gpu: next.gpu?.status === 'ok' ? next.gpu.summaries.map(({ model, median: value, count, providers }) => ({ model, median: value, count, providers })) : null,
-    sec: results.filter((item) => !item.error).map(({ symbol, ratio, start, end }) => ({ symbol, ratio, start, end })),
+    sec: results.filter((item) => !item.error).map(({ symbol, ratio, start, end, revenue, capex, ocf }) => ({ symbol, ratio, start, end, revenue, capex, ocf })),
+    market: quoteResults.filter((item) => !item.error).map(({ symbol, price, change, tradeDate }) => ({ symbol, price, change, tradeDate })),
   });
   daily.sort((a, b) => a.date.localeCompare(b.date));
   await writeFile(autoPath, JSON.stringify(next, null, 2) + '\n');
   await writeFile(historyPath, JSON.stringify({ version: 1, daily: daily.slice(-120) }, null, 2) + '\n');
-  console.log(`已更新 ${day}：GPU ${next.gpu.status}，SEC ${next.sec.status}；保留 ${Math.min(daily.length, 120)} 日记录`);
+  console.log(`已更新 ${day}：行情 ${next.market.status}，GPU ${next.gpu.status}，SEC ${next.sec.status}；保留 ${Math.min(daily.length, 120)} 日记录`);
 }
 
 if (process.argv[1] === fileURLToPath(import.meta.url)) {

@@ -22,7 +22,15 @@ for (const entry of issue.archive) {
   const archived = JSON.parse(await readFile(path.join(root, entry.path), 'utf8'));
   if (archived.date !== entry.date || archived.number !== entry.number || archived.title !== entry.title) fail(`历史快照与目录不符：${entry.date}`);
 }
-if (auto.version !== 1 || !auto.sec || !auto.gpu || !Array.isArray(auto.sec.items) || !Array.isArray(auto.gpu.summaries)) fail('自动数据格式异常');
+if (auto.version !== 1 || !auto.sec || !auto.gpu || !auto.market ||
+    !Array.isArray(auto.sec.items) || !Array.isArray(auto.gpu.summaries) || !Array.isArray(auto.market.items)) fail('自动数据格式异常');
+const symbols = ['MSFT', 'META', 'NVDA', 'GOOGL', 'AMZN', 'MU'];
+for (const group of ['sec', 'market']) {
+  if (symbols.some((symbol) => !auto[group].items.some((item) => item.symbol === symbol))) fail(`${group} 缺少观察公司`);
+}
+for (const item of auto.market.items) {
+  if (item.price != null && (!/^\d{4}-\d{2}-\d{2}$/.test(item.tradeDate) || !item.source?.startsWith('https://'))) fail(`行情日期或来源异常：${item.symbol}`);
+}
 if (history.version !== 1 || !Array.isArray(history.daily) || history.daily.length > 120) fail('每日历史格式异常');
 if (new Set(history.daily.map((item) => item.date)).size !== history.daily.length) fail('每日历史日期重复');
 const html = await readFile(path.join(root, 'index.html'), 'utf8');
