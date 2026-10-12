@@ -1,0 +1,57 @@
+{
+  "version": 1,
+  "generatedAt": "2026-10-12T00:06:44.291Z",
+  "sec": {
+    "status": "ok",
+    "fetchedAt": "2026-10-12T00:06:44.291Z",
+    "items": [
+      {
+        "symbol": "MSFT",
+        "name": "Microsoft",
+        "ratio": 0.6338207560062317,
+        "capex": 115948000000,
+        "ocf": 182935000000,
+        "start": "2025-07-01",
+        "end": "2026-06-30",
+        "filed": "2026-07-29",
+        "form": "10-K",
+        "capexTag": "PaymentsToAcquirePropertyPlantAndEquipment",
+        "source": "https://www.sec.gov/Archives/edgar/data/789019/000119312526323660/"
+      },
+      {
+        "symbol": "META",
+        "name": "Meta",
+        "ratio": 0.7663369117463488,
+        "capex": 49113000000,
+        "ocf": 64088000000,
+        "start": "2026-01-01",
+        "end": "2026-06-30",
+        "filed": "2026-07-30",
+        "form": "10-Q",
+        "capexTag": "PaymentsToAcquirePropertyPlantAndEquipment",
+        "source": "https://www.sec.gov/Archives/edgar/data/1326801/000162828026050705/"
+      }
+    ],
+    "error": null
+  },
+  "gpu": {
+    "status": "ok",
+    "fetchedAt": "2026-10-12T00:06:44.291Z",
+    "sourceAt": "2026-10-12T00:06:45.660Z",
+    "summaries": [
+      {
+        "model": "B200",
+        "median": 9.350000000000001,
+        "count": 6,
+        "providers": 2
+      },
+      {
+        "model": "H100",
+        "median": 3.7581722319859407,
+        "count": 24,
+        "providers": 6
+      }
+    ],
+    "error": null
+  }
+}

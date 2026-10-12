@@ -1,0 +1,43 @@
+{
+  "version": 1,
+  "number": "01",
+  "date": "2026-10-12",
+  "label": "首期观察 · 建立基线",
+  "title": "投入扩张，商业兑现仍待验证",
+  "summary": "公开资料显示，AI 的采用和资本投入都在快速增长。首期先建立可复查的证据基线：持续观察付费收入能否跟上投入，以及供给价格变化是否得到更广泛数据印证。",
+  "stance": "观察中",
+  "change": "这是第一期，没有可比较的本站历史记录，因此不判定周期拐点，也不计算综合分数。",
+  "sections": [
+    {
+      "id": "demand",
+      "eyebrow": "01 / 需求",
+      "title": "使用范围扩大，付费兑现继续核验",
+      "reading": "斯坦福 2026 AI Index 汇总的调查显示，2025 年有 88% 的受访组织使用 AI。这说明采用正在扩散；调查中的“使用”不能直接当成 AI 产品收入或利润。",
+      "metric": { "value": "88%", "label": "受访组织使用 AI", "period": "调查对应 2025 年" },
+      "next": "跟踪企业单独披露的 AI 付费收入、留存及生产部署；缺少同口径披露时保留空白。",
+      "source": { "label": "Stanford HAI · 2026 AI Index", "url": "https://hai.stanford.edu/ai-index/2026-ai-index-report/economy" }
+    },
+    {
+      "id": "capital",
+      "eyebrow": "02 / 资本",
+      "title": "投入很大，现金覆盖需逐季观察",
+      "reading": "同一份报告估计，2025 年全球企业 AI 投资约 5,817 亿美元。该口径包含不同类型的投资活动，不能与云厂商资本开支相加。下方的现金 Capex / OCF 来自公司整体财报，也不等于 AI 项目的投资回报。",
+      "metric": { "value": "5,817 亿", "label": "全球企业 AI 投资 · 美元", "period": "2025 年；报告估计" },
+      "next": "分别比较每家公司相同累计期间的现金资本开支与经营现金流，观察覆盖能力是否连续恶化。",
+      "source": { "label": "Stanford HAI · 2026 AI Index", "url": "https://hai.stanford.edu/ai-index/2026-ai-index-report/economy" }
+    },
+    {
+      "id": "infrastructure",
+      "eyebrow": "03 / 基础设施",
+      "title": "GPU 报价作供给旁证",
+      "reading": "GPU 租赁报价能提供供给侧线索，但同型号也会混有不同地区、配置和租用条件。本站只展示来源中可用、非 spot 的报价条目及样本数，不把挂牌中位数称为行业成交价格。",
+      "metric": { "value": "B200 / H100", "label": "可用挂牌报价", "period": "每日抓取；上线后积累本站历史" },
+      "next": "在同一来源和筛选口径下比较报价、样本数量及供应商数量，避免从单日价格推断整个行业。",
+      "source": { "label": "Aquanode Marketplace API", "url": "https://docs.aquanode.io/docs/api/marketplace" }
+    }
+  ],
+  "method": "本页是按日期保存的研究观察。人工判断与自动读取的数据分别标注来源和时间；页面没有自动周期评级、价格预测或交易信号。",
+  "archive": [
+    { "number": "01", "date": "2026-10-12", "title": "投入扩张，商业兑现仍待验证", "note": "建立首期证据基线", "path": "./data/issues/2026-10-12.json" }
+  ]
+}

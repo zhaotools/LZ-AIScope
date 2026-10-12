@@ -1,0 +1,12 @@
+{
+  "name": "lz-aiscope",
+  "version": "0.1.0",
+  "private": true,
+  "type": "module",
+  "scripts": {
+    "update-data": "node scripts/update-data.mjs",
+    "check": "node scripts/check.mjs",
+    "test": "node --test tests/*.test.mjs"
+  },
+  "engines": { "node": ">=22" }
+}
