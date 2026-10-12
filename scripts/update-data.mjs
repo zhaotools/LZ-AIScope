@@ -93,7 +93,10 @@ async function getJson(url, headers = {}) {
 
 async function readJson(file, fallback) {
   try { return JSON.parse(await readFile(file, 'utf8')); }
-  catch { return fallback; }
+  catch (error) {
+    if (error.code === 'ENOENT') return fallback;
+    throw error;
+  }
 }
 
 function chinaDate(date) {
