@@ -1,9 +1,9 @@
 {
   "version": 1,
-  "generatedAt": "2026-10-12T00:50:43.218Z",
+  "generatedAt": "2026-10-12T07:24:18.886Z",
   "sec": {
     "status": "ok",
-    "fetchedAt": "2026-10-12T00:50:43.218Z",
+    "fetchedAt": "2026-10-12T07:24:18.886Z",
     "items": [
       {
         "symbol": "MSFT",
@@ -100,8 +100,8 @@
   },
   "gpu": {
     "status": "ok",
-    "fetchedAt": "2026-10-12T00:50:43.218Z",
-    "sourceAt": "2026-10-12T00:50:43.476Z",
+    "fetchedAt": "2026-10-12T07:24:18.886Z",
+    "sourceAt": "2026-10-12T07:24:19.257Z",
     "offers": [
       {
         "model": "H100",
@@ -113,9 +113,9 @@
       },
       {
         "model": "H100",
-        "price": 2.7775000000000003,
-        "provider": "hyperstack",
-        "region": "Canada",
+        "price": 2.68562962962963,
+        "provider": "vastai",
+        "region": "South Korea",
         "gpuCount": 1,
         "available": 1
       },
@@ -129,19 +129,27 @@
       },
       {
         "model": "H100",
-        "price": 2.8886000000000007,
+        "price": 2.7775000000000003,
         "provider": "hyperstack",
         "region": "Canada",
-        "gpuCount": 8,
-        "available": 8
+        "gpuCount": 1,
+        "available": 1
       },
       {
         "model": "H100",
-        "price": 2.8886000000000007,
+        "price": 2.7775000000000003,
         "provider": "hyperstack",
         "region": "Canada",
-        "gpuCount": 8,
-        "available": 8
+        "gpuCount": 2,
+        "available": 2
+      },
+      {
+        "model": "H100",
+        "price": 2.7775000000000003,
+        "provider": "hyperstack",
+        "region": "Canada",
+        "gpuCount": 2,
+        "available": 2
       },
       {
         "model": "H100",
@@ -161,6 +169,14 @@
       },
       {
         "model": "H100",
+        "price": 2.994216296296296,
+        "provider": "vastai",
+        "region": "Czech Republic",
+        "gpuCount": 1,
+        "available": 1
+      },
+      {
+        "model": "H100",
         "price": 3.003,
         "provider": "massecompute",
         "region": "Des Moines, US",
@@ -174,30 +190,6 @@
         "region": "Des Moines, US",
         "gpuCount": 2,
         "available": 2
-      },
-      {
-        "model": "H100",
-        "price": 3.4210000000000003,
-        "provider": "massecompute",
-        "region": "Des Moines, US",
-        "gpuCount": 1,
-        "available": 1
-      },
-      {
-        "model": "H100",
-        "price": 3.4210000000000003,
-        "provider": "massecompute",
-        "region": "Des Moines, US",
-        "gpuCount": 2,
-        "available": 2
-      },
-      {
-        "model": "H100",
-        "price": 3.4210000000000003,
-        "provider": "massecompute",
-        "region": "Des Moines, US",
-        "gpuCount": 4,
-        "available": 4
       },
       {
         "model": "H100",
@@ -273,31 +265,7 @@
       },
       {
         "model": "H100",
-        "price": 4.384991111111112,
-        "provider": "vastai",
-        "region": "Czech Republic",
-        "gpuCount": 2,
-        "available": 2
-      },
-      {
-        "model": "H100",
         "price": 4.568177777777779,
-        "provider": "vastai",
-        "region": "Czech Republic",
-        "gpuCount": 1,
-        "available": 1
-      },
-      {
-        "model": "H100",
-        "price": 4.754248888888888,
-        "provider": "vastai",
-        "region": "Czech Republic",
-        "gpuCount": 1,
-        "available": 1
-      },
-      {
-        "model": "H100",
-        "price": 4.845703703703704,
         "provider": "vastai",
         "region": "Czech Republic",
         "gpuCount": 1,
@@ -312,12 +280,12 @@
         "available": 32
       },
       {
-        "model": "H100",
-        "price": 4.95,
-        "provider": "nebius",
-        "region": "Finland",
-        "gpuCount": 8,
-        "available": 4
+        "model": "B200",
+        "price": 7.664097222222223,
+        "provider": "vastai",
+        "region": "Maryland, US",
+        "gpuCount": 2,
+        "available": 2
       },
       {
         "model": "B200",
@@ -341,7 +309,7 @@
         "provider": "nebius",
         "region": "United States",
         "gpuCount": 8,
-        "available": 1
+        "available": 2
       },
       {
         "model": "B200",
@@ -364,17 +332,17 @@
       {
         "model": "B200",
         "median": 9.350000000000001,
-        "min": 8.150694444444444,
+        "min": 7.664097222222223,
         "max": 11.355208333333334,
-        "count": 5,
+        "count": 6,
         "providers": 2
       },
       {
         "model": "H100",
-        "median": 3.7581722319859407,
+        "median": 3.3805861159929704,
         "min": 2.6622444444444446,
         "max": 4.95,
-        "count": 27,
+        "count": 22,
         "providers": 6
       }
     ],
@@ -382,14 +350,14 @@
   },
   "market": {
     "status": "ok",
-    "fetchedAt": "2026-10-12T00:50:43.218Z",
+    "fetchedAt": "2026-10-12T07:24:18.886Z",
     "items": [
       {
         "symbol": "MSFT",
         "name": "Microsoft",
         "price": 535.07,
         "change": 2.38,
-        "tradeDate": "2026-10-08",
+        "tradeDate": "2026-10-09",
         "isRealTime": false,
         "marketStatus": "Closed",
         "source": "https://www.nasdaq.com/market-activity/stocks/msft"
@@ -399,7 +367,7 @@
         "name": "Meta",
         "price": 718.67,
         "change": -0.31,
-        "tradeDate": "2026-10-08",
+        "tradeDate": "2026-10-09",
         "isRealTime": false,
         "marketStatus": "Closed",
         "source": "https://www.nasdaq.com/market-activity/stocks/meta"
@@ -409,7 +377,7 @@
         "name": "NVIDIA",
         "price": 229.28,
         "change": -0.52,
-        "tradeDate": "2026-10-08",
+        "tradeDate": "2026-10-09",
         "isRealTime": false,
         "marketStatus": "Closed",
         "source": "https://www.nasdaq.com/market-activity/stocks/nvda"
@@ -419,7 +387,7 @@
         "name": "Alphabet",
         "price": 351.66,
         "change": 0.97,
-        "tradeDate": "2026-10-08",
+        "tradeDate": "2026-10-09",
         "isRealTime": false,
         "marketStatus": "Closed",
         "source": "https://www.nasdaq.com/market-activity/stocks/googl"
@@ -429,7 +397,7 @@
         "name": "Amazon",
         "price": 262.43,
         "change": 3.29,
-        "tradeDate": "2026-10-08",
+        "tradeDate": "2026-10-09",
         "isRealTime": false,
         "marketStatus": "Closed",
         "source": "https://www.nasdaq.com/market-activity/stocks/amzn"
@@ -439,7 +407,7 @@
         "name": "Micron",
         "price": 1029,
         "change": -0.66,
-        "tradeDate": "2026-10-08",
+        "tradeDate": "2026-10-09",
         "isRealTime": false,
         "marketStatus": "Closed",
         "source": "https://www.nasdaq.com/market-activity/stocks/mu"

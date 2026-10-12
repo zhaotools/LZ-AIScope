@@ -3,18 +3,18 @@
   "daily": [
     {
       "date": "2026-10-12",
-      "capturedAt": "2026-10-12T00:50:43.218Z",
+      "capturedAt": "2026-10-12T07:24:18.886Z",
       "gpu": [
         {
           "model": "B200",
           "median": 9.350000000000001,
-          "count": 5,
+          "count": 6,
           "providers": 2
         },
         {
           "model": "H100",
-          "median": 3.7581722319859407,
-          "count": 27,
+          "median": 3.3805861159929704,
+          "count": 22,
           "providers": 6
         }
       ],
@@ -79,37 +79,37 @@
           "symbol": "MSFT",
           "price": 535.07,
           "change": 2.38,
-          "tradeDate": "2026-10-08"
+          "tradeDate": "2026-10-09"
         },
         {
           "symbol": "META",
           "price": 718.67,
           "change": -0.31,
-          "tradeDate": "2026-10-08"
+          "tradeDate": "2026-10-09"
         },
         {
           "symbol": "NVDA",
           "price": 229.28,
           "change": -0.52,
-          "tradeDate": "2026-10-08"
+          "tradeDate": "2026-10-09"
         },
         {
           "symbol": "GOOGL",
           "price": 351.66,
           "change": 0.97,
-          "tradeDate": "2026-10-08"
+          "tradeDate": "2026-10-09"
         },
         {
           "symbol": "AMZN",
           "price": 262.43,
           "change": 3.29,
-          "tradeDate": "2026-10-08"
+          "tradeDate": "2026-10-09"
         },
         {
           "symbol": "MU",
           "price": 1029,
           "change": -0.66,
-          "tradeDate": "2026-10-08"
+          "tradeDate": "2026-10-09"
         }
       ]
     }
