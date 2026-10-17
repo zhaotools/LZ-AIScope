@@ -1,9 +1,9 @@
 {
   "version": 1,
-  "generatedAt": "2026-10-16T05:53:35.597Z",
+  "generatedAt": "2026-10-17T05:37:39.910Z",
   "sec": {
     "status": "ok",
-    "fetchedAt": "2026-10-16T05:53:35.597Z",
+    "fetchedAt": "2026-10-17T05:37:39.910Z",
     "items": [
       {
         "symbol": "MSFT",
@@ -100,14 +100,14 @@
   },
   "gpu": {
     "status": "ok",
-    "fetchedAt": "2026-10-16T05:53:35.597Z",
-    "sourceAt": "2026-10-16T05:53:35.841Z",
+    "fetchedAt": "2026-10-17T05:37:39.910Z",
+    "sourceAt": "2026-10-17T05:37:40.136Z",
     "offers": [
       {
         "model": "H100",
-        "price": 2.7775000000000003,
-        "provider": "hyperstack",
-        "region": "Canada",
+        "price": 2.2371555555555553,
+        "provider": "vastai",
+        "region": "United States",
         "gpuCount": 1,
         "available": 1
       },
@@ -121,11 +121,51 @@
       },
       {
         "model": "H100",
-        "price": 2.9799,
-        "provider": "akash",
-        "region": "BKK, TH",
+        "price": 2.7775000000000003,
+        "provider": "hyperstack",
+        "region": "Canada",
         "gpuCount": 1,
         "available": 1
+      },
+      {
+        "model": "H100",
+        "price": 2.7775000000000003,
+        "provider": "hyperstack",
+        "region": "Canada",
+        "gpuCount": 2,
+        "available": 2
+      },
+      {
+        "model": "H100",
+        "price": 2.7775000000000003,
+        "provider": "hyperstack",
+        "region": "Canada",
+        "gpuCount": 2,
+        "available": 2
+      },
+      {
+        "model": "H100",
+        "price": 2.7775000000000003,
+        "provider": "hyperstack",
+        "region": "Canada",
+        "gpuCount": 4,
+        "available": 4
+      },
+      {
+        "model": "H100",
+        "price": 2.7775000000000003,
+        "provider": "hyperstack",
+        "region": "Canada",
+        "gpuCount": 4,
+        "available": 4
+      },
+      {
+        "model": "H100",
+        "price": 2.9200681481481476,
+        "provider": "vastai",
+        "region": "Czech Republic",
+        "gpuCount": 2,
+        "available": 2
       },
       {
         "model": "H100",
@@ -137,6 +177,22 @@
       },
       {
         "model": "H100",
+        "price": 2.9799,
+        "provider": "akash",
+        "region": "BKK, TH",
+        "gpuCount": 2,
+        "available": 2
+      },
+      {
+        "model": "H100",
+        "price": 2.994216296296296,
+        "provider": "vastai",
+        "region": "Czech Republic",
+        "gpuCount": 1,
+        "available": 1
+      },
+      {
+        "model": "H100",
         "price": 3.003,
         "provider": "massecompute",
         "region": "Des Moines, US",
@@ -145,23 +201,7 @@
       },
       {
         "model": "H100",
-        "price": 3.360622222222219,
-        "provider": "vastai",
-        "region": "Kansas, US",
-        "gpuCount": 1,
-        "available": 1
-      },
-      {
-        "model": "H100",
-        "price": 3.4210000000000003,
-        "provider": "massecompute",
-        "region": "Des Moines, US",
-        "gpuCount": 1,
-        "available": 1
-      },
-      {
-        "model": "H100",
-        "price": 3.4210000000000003,
+        "price": 3.003,
         "provider": "massecompute",
         "region": "Des Moines, US",
         "gpuCount": 2,
@@ -169,7 +209,7 @@
       },
       {
         "model": "H100",
-        "price": 3.4210000000000003,
+        "price": 3.003,
         "provider": "massecompute",
         "region": "Des Moines, US",
         "gpuCount": 4,
@@ -177,7 +217,87 @@
       },
       {
         "model": "H100",
-        "price": 3.7582518518518517,
+        "price": 3.4210000000000003,
+        "provider": "massecompute",
+        "region": "Des Moines, US",
+        "gpuCount": 1,
+        "available": 1
+      },
+      {
+        "model": "H100",
+        "price": 3.4210000000000003,
+        "provider": "massecompute",
+        "region": "Des Moines, US",
+        "gpuCount": 2,
+        "available": 2
+      },
+      {
+        "model": "H100",
+        "price": 3.828222409435552,
+        "provider": "jarvislabs",
+        "region": "Noida, IN",
+        "gpuCount": 5,
+        "available": 8
+      },
+      {
+        "model": "H100",
+        "price": 3.8282224094355524,
+        "provider": "jarvislabs",
+        "region": "Noida, IN",
+        "gpuCount": 1,
+        "available": 8
+      },
+      {
+        "model": "H100",
+        "price": 3.8282224094355524,
+        "provider": "jarvislabs",
+        "region": "Noida, IN",
+        "gpuCount": 2,
+        "available": 8
+      },
+      {
+        "model": "H100",
+        "price": 3.8282224094355524,
+        "provider": "jarvislabs",
+        "region": "Noida, IN",
+        "gpuCount": 3,
+        "available": 8
+      },
+      {
+        "model": "H100",
+        "price": 3.8282224094355524,
+        "provider": "jarvislabs",
+        "region": "Noida, IN",
+        "gpuCount": 4,
+        "available": 8
+      },
+      {
+        "model": "H100",
+        "price": 3.8282224094355524,
+        "provider": "jarvislabs",
+        "region": "Noida, IN",
+        "gpuCount": 6,
+        "available": 8
+      },
+      {
+        "model": "H100",
+        "price": 3.8282224094355524,
+        "provider": "jarvislabs",
+        "region": "Noida, IN",
+        "gpuCount": 8,
+        "available": 8
+      },
+      {
+        "model": "H100",
+        "price": 3.828222409435553,
+        "provider": "jarvislabs",
+        "region": "Noida, IN",
+        "gpuCount": 7,
+        "available": 8
+      },
+      {
+        "model": "H100",
+        "price": 4.131257777777778,
         "provider": "vastai",
         "region": "Czech Republic",
         "gpuCount": 2,
@@ -185,23 +305,7 @@
       },
       {
         "model": "H100",
-        "price": 3.824195245108353,
-        "provider": "jarvislabs",
-        "region": "Noida, IN",
-        "gpuCount": 1,
-        "available": 2
-      },
-      {
-        "model": "H100",
-        "price": 3.824195245108353,
-        "provider": "jarvislabs",
-        "region": "Noida, IN",
-        "gpuCount": 2,
-        "available": 2
-      },
-      {
-        "model": "H100",
-        "price": 4.084503703703704,
+        "price": 4.500515555555556,
         "provider": "vastai",
         "region": "Czech Republic",
         "gpuCount": 1,
@@ -237,15 +341,7 @@
         "provider": "nebius",
         "region": "United States",
         "gpuCount": 1,
-        "available": 15
-      },
-      {
-        "model": "B200",
-        "price": 9.981354166666668,
-        "provider": "vastai",
-        "region": "Maryland, US",
-        "gpuCount": 2,
-        "available": 2
+        "available": 14
       },
       {
         "model": "B200",
@@ -257,7 +353,7 @@
       },
       {
         "model": "B200",
-        "price": 11.355208333333334,
+        "price": 12.730208333333334,
         "provider": "vastai",
         "region": "United States",
         "gpuCount": 1,
@@ -267,18 +363,18 @@
     "summaries": [
       {
         "model": "B200",
-        "median": 10.24203125,
+        "median": 10.502708333333333,
         "min": 9.350000000000001,
-        "max": 11.355208333333334,
-        "count": 4,
+        "max": 12.730208333333334,
+        "count": 3,
         "providers": 2
       },
       {
         "model": "H100",
         "median": 3.4210000000000003,
-        "min": 2.7775000000000003,
+        "min": 2.2371555555555553,
         "max": 7.5680000000000005,
-        "count": 16,
+        "count": 29,
         "providers": 7
       }
     ],
@@ -286,13 +382,13 @@
   },
   "market": {
     "status": "ok",
-    "fetchedAt": "2026-10-16T05:53:35.597Z",
+    "fetchedAt": "2026-10-17T05:37:39.910Z",
     "items": [
       {
         "symbol": "MSFT",
         "name": "Microsoft",
-        "price": 539.44,
-        "change": 1.08,
+        "price": 529.05,
+        "change": -1.93,
         "tradeDate": "2026-10-15",
         "isRealTime": false,
         "marketStatus": "Closed",
@@ -301,8 +397,8 @@
       {
         "symbol": "META",
         "name": "Meta",
-        "price": 736.72,
-        "change": -0.11,
+        "price": 709.325,
+        "change": -3.72,
         "tradeDate": "2026-10-15",
         "isRealTime": false,
         "marketStatus": "Closed",
@@ -311,8 +407,8 @@
       {
         "symbol": "NVDA",
         "name": "NVIDIA",
-        "price": 217.23,
-        "change": -1.84,
+        "price": 214.13,
+        "change": -1.43,
         "tradeDate": "2026-10-15",
         "isRealTime": false,
         "marketStatus": "Closed",
@@ -321,8 +417,8 @@
       {
         "symbol": "GOOGL",
         "name": "Alphabet",
-        "price": 349.22,
-        "change": 0.45,
+        "price": 340.59,
+        "change": -2.47,
         "tradeDate": "2026-10-15",
         "isRealTime": false,
         "marketStatus": "Closed",
@@ -331,8 +427,8 @@
       {
         "symbol": "AMZN",
         "name": "Amazon",
-        "price": 254.76,
-        "change": 0.27,
+        "price": 250,
+        "change": -1.87,
         "tradeDate": "2026-10-15",
         "isRealTime": false,
         "marketStatus": "Closed",
@@ -341,8 +437,8 @@
       {
         "symbol": "MU",
         "name": "Micron",
-        "price": 931.24,
-        "change": 1.87,
+        "price": 878.84,
+        "change": -5.63,
         "tradeDate": "2026-10-15",
         "isRealTime": false,
         "marketStatus": "Closed",
