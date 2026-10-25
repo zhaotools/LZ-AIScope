@@ -1,9 +1,9 @@
 {
   "version": 1,
-  "generatedAt": "2026-10-24T05:56:21.533Z",
+  "generatedAt": "2026-10-25T06:10:44.089Z",
   "sec": {
     "status": "ok",
-    "fetchedAt": "2026-10-24T05:56:21.533Z",
+    "fetchedAt": "2026-10-25T06:10:44.089Z",
     "items": [
       {
         "symbol": "MSFT",
@@ -100,8 +100,8 @@
   },
   "gpu": {
     "status": "ok",
-    "fetchedAt": "2026-10-24T05:56:21.533Z",
-    "sourceAt": "2026-10-24T05:56:21.849Z",
+    "fetchedAt": "2026-10-25T06:10:44.089Z",
+    "sourceAt": "2026-10-25T06:10:44.618Z",
     "offers": [
       {
         "model": "H100",
@@ -137,35 +137,19 @@
       },
       {
         "model": "H100",
-        "price": 2.8886000000000007,
-        "provider": "hyperstack",
-        "region": "Canada",
-        "gpuCount": 8,
-        "available": 8
-      },
-      {
-        "model": "H100",
-        "price": 2.8886000000000007,
-        "provider": "hyperstack",
-        "region": "Canada",
-        "gpuCount": 8,
-        "available": 8
-      },
-      {
-        "model": "H100",
         "price": 2.9799,
         "provider": "akash",
         "region": "BKK, TH",
-        "gpuCount": 1,
-        "available": 1
+        "gpuCount": 2,
+        "available": 2
       },
       {
         "model": "H100",
         "price": 2.9799,
         "provider": "akash",
         "region": "AMS, GB",
-        "gpuCount": 5,
-        "available": 5
+        "gpuCount": 7,
+        "available": 7
       },
       {
         "model": "H100",
@@ -182,6 +166,14 @@
         "region": "Des Moines, US",
         "gpuCount": 2,
         "available": 2
+      },
+      {
+        "model": "H100",
+        "price": 3.003,
+        "provider": "massecompute",
+        "region": "Des Moines, US",
+        "gpuCount": 4,
+        "available": 4
       },
       {
         "model": "H100",
@@ -190,14 +182,6 @@
         "region": "Des Moines, US",
         "gpuCount": 1,
         "available": 1
-      },
-      {
-        "model": "H100",
-        "price": 3.5175881481481484,
-        "provider": "vastai",
-        "region": "Czech Republic",
-        "gpuCount": 2,
-        "available": 2
       },
       {
         "model": "H100",
@@ -241,6 +225,22 @@
       },
       {
         "model": "H100",
+        "price": 4.7645155555555565,
+        "provider": "vastai",
+        "region": "Czech Republic",
+        "gpuCount": 1,
+        "available": 1
+      },
+      {
+        "model": "H100",
+        "price": 4.946903703703703,
+        "provider": "vastai",
+        "region": "Czech Republic",
+        "gpuCount": 1,
+        "available": 1
+      },
+      {
+        "model": "H100",
         "price": 4.95,
         "provider": "nebius",
         "region": "Finland",
@@ -257,19 +257,19 @@
       },
       {
         "model": "H100",
-        "price": 4.9665,
+        "price": 5.016,
         "provider": "datacrunch",
         "region": "Finland",
-        "gpuCount": 8,
-        "available": 8
+        "gpuCount": 1,
+        "available": 1
       },
       {
         "model": "H100",
-        "price": 5.037837037037037,
-        "provider": "vastai",
-        "region": "Czech Republic",
-        "gpuCount": 1,
-        "available": 1
+        "price": 5.016,
+        "provider": "datacrunch",
+        "region": "Finland",
+        "gpuCount": 2,
+        "available": 2
       },
       {
         "model": "H100",
@@ -281,33 +281,25 @@
       },
       {
         "model": "B200",
-        "price": 9.190500000000002,
-        "provider": "datacrunch",
-        "region": "Finland",
-        "gpuCount": 1,
-        "available": 1
-      },
-      {
-        "model": "B200",
         "price": 9.350000000000001,
         "provider": "nebius",
         "region": "United States",
         "gpuCount": 1,
-        "available": 6
+        "available": 3
       }
     ],
     "summaries": [
       {
         "model": "B200",
-        "median": 9.27025,
-        "min": 9.190500000000002,
+        "median": 9.350000000000001,
+        "min": 9.350000000000001,
         "max": 9.350000000000001,
-        "count": 2,
-        "providers": 2
+        "count": 1,
+        "providers": 1
       },
       {
         "model": "H100",
-        "median": 3.4692940740740745,
+        "median": 3.7103825783145696,
         "min": 2.7775000000000003,
         "max": 7.5680000000000005,
         "count": 22,
@@ -318,7 +310,7 @@
   },
   "market": {
     "status": "ok",
-    "fetchedAt": "2026-10-24T05:56:21.533Z",
+    "fetchedAt": "2026-10-25T06:10:44.089Z",
     "items": [
       {
         "symbol": "MSFT",
