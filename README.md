@@ -1,5 +1,7 @@
 # LZ-AIScope
 
+> **暂停运行（2026-10-31）**：已停用 GitHub Actions 自动抓取与部署。现有网页是最后一次发布的静态快照，数据不会继续更新。恢复时需重新启用工作流并核对数据日期。
+
 AI 产业周期观察的第一版。按期保存人工判断与来源，GitHub Actions 每天采样 Nasdaq 六家公司股价快照、SEC 公司财报和 Aquanode GPU 挂牌报价，再把同一份静态页面发布到 GitHub Pages。
 
 - 网站：<https://zhaotools.github.io/LZ-AIScope/>
